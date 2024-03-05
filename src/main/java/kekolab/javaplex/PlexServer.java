@@ -1,7 +1,10 @@
 package kekolab.javaplex;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import java.util.Date;
+import java.util.List;
 import kekolab.javaplex.mappers.TimestampDeserializer;
 
 public class PlexServer extends BaseItem
@@ -22,6 +25,10 @@ public class PlexServer extends BaseItem
 	private String owned;
 	private String synced;
 
+	@JsonProperty("Section")
+	@JacksonXmlElementWrapper(useWrapping = false)
+	private List<PlexServersSection> serversSections;
+
 	@Override
 	protected void clear()
 	{
@@ -38,31 +45,34 @@ public class PlexServer extends BaseItem
 		owned = null;
 		machineIdentifier = null;
 		updatedAt = null;
+		serversSections.clear();
 	}
 
 	@Override
 	protected void update(BaseItem source)
 	{
 		super.update(source);
-		if (source instanceof PlexServer plexServersServer)
+		if (source instanceof PlexServer plexServer)
 		{
-			accessToken = plexServersServer.accessToken;
-			address = plexServersServer.address;
-			createdAt = plexServersServer.createdAt;
-			port = plexServersServer.port;
-			version = plexServersServer.version;
-			scheme = plexServersServer.scheme;
-			host = plexServersServer.host;
-			name = plexServersServer.name;
-			localAddresses = plexServersServer.localAddresses;
-			owned = plexServersServer.owned;
-			machineIdentifier = plexServersServer.machineIdentifier;
-			updatedAt = plexServersServer.updatedAt;
+			serversSections.clear();
+			serversSections.addAll(plexServer.serversSections);
+			accessToken = plexServer.accessToken;
+			address = plexServer.address;
+			createdAt = plexServer.createdAt;
+			port = plexServer.port;
+			version = plexServer.version;
+			scheme = plexServer.scheme;
+			host = plexServer.host;
+			name = plexServer.name;
+			localAddresses = plexServer.localAddresses;
+			owned = plexServer.owned;
+			machineIdentifier = plexServer.machineIdentifier;
+			updatedAt = plexServer.updatedAt;
 
 		}
 		else
 		{
-			throw new ClassCastException("Cannot cast source to PlexServersServer");
+			throw new ClassCastException("Cannot cast source to PlexServer");
 		}
 	}
 
@@ -194,5 +204,15 @@ public class PlexServer extends BaseItem
 	public void setAddress(String address)
 	{
 		this.address = address;
+	}
+
+	public void setServersSections(List<PlexServersSection> serversSections)
+	{
+		this.serversSections = serversSections;
+	}
+
+	public List<PlexServersSection> getServersSections()
+	{
+		return serversSections;
 	}
 }

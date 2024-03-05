@@ -34,7 +34,7 @@ public class PlexSharedServer extends BaseItem
 
 	@JsonProperty("Section")
 	@JacksonXmlElementWrapper(useWrapping = false)
-	private List<PlexServersSharedServersSection> plexServersSharedServersSections;
+	private List<PlexServersSection> serversSections;
 
 	@Override
 	protected void clear()
@@ -60,7 +60,7 @@ public class PlexSharedServer extends BaseItem
 		filterMusic = null;
 		filterPhotos = null;
 		filterTelevision = null;
-		plexServersSharedServersSections.clear();
+		serversSections.clear();
 	}
 
 	@Override
@@ -69,8 +69,8 @@ public class PlexSharedServer extends BaseItem
 		super.update(source);
 		if (source instanceof PlexSharedServer plexServersServer)
 		{
-			plexServersSharedServersSections.clear();
-			plexServersSharedServersSections.addAll(plexServersServer.plexServersSharedServersSections);
+			serversSections.clear();
+			serversSections.addAll(plexServersServer.serversSections);
 			id = plexServersServer.id;
 			username = plexServersServer.username;
 			email = plexServersServer.email;
@@ -297,27 +297,13 @@ public class PlexSharedServer extends BaseItem
 	{
 		this.filterTelevision = filterTelevision;
 	}
-
-	public List<PlexServersSharedServersSection> getPlexServersSharedServersSections()
+	public void setPlexServersSharedServersSections(List<PlexServersSection> ServersSections)
 	{
-		return plexServersSharedServersSections;
+		this.serversSections = ServersSections;
 	}
 
-	// todo wrap this up some how
-	public String friendRequestBuilder(List<String> sections, String email, String allowSync, String allowCameraUpload, String allowChannels, String filterMovies, String filterTelevision, String filterMusic)
+	public List<PlexServersSection> getServersSections()
 	{
-		return "{" +
-			"  \"server_id\": \"\"," +
-			"  \"shared_server\": {\"library_section_ids\" : " + sections.toString() + ", \"invited_email\": \"" + email + "\"}," +
-			"  \"sharing_settings\":" +
-			"  {" +
-			"    \"allowSync\": \"" + allowSync + "\"," +
-			"    \"allowCameraUpload\": \"" + allowCameraUpload+ "\"," +
-			"    \"allowChannels\": \""+allowChannels+"\"," +
-			"    \"filterMovies\": "+filterMovies+"," +
-			"    \"filterTelevision\": "+filterTelevision+"," +
-			"    \"filterMusic\": "+filterMusic+
-			"  }" +
-			"}";
+		return serversSections;
 	}
 }

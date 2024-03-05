@@ -14,18 +14,18 @@ public class PlexServers extends ServerMediaContainer
 	int size;
 	@JsonProperty("Server")
 	@JacksonXmlElementWrapper(useWrapping = false)
-	private List<PlexServer> plexServersServers;
+	private List<PlexServer> plexServers;
 
 	public List<PlexServer> getServers()
 	{
 		fetch();
-		plexServersServers.stream().filter(PlexServers.class::isInstance).map(PlexServers.class::cast);
-		return plexServersServers;
+		plexServers.stream().filter(PlexServer.class::isInstance).map(PlexServer.class::cast);
+		return plexServers;
 	}
 
 	public PlexServers(PlexMediaServer server, PlexHTTPClient client, String token) throws URISyntaxException
 	{
-		super(new URIBuilder("https://plex.tv/api/servers").build(), client, token, server);
+		super(new URIBuilder("https://plex.tv/api/servers").appendPath(server.getMachineIdentifier()).build(), client, token, server);
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class PlexServers extends ServerMediaContainer
 		identifier = null;
 		machineIdentifier = null;
 		size = 0;
-		plexServersServers.clear();
+		plexServers.clear();
 	}
 
 	@Override
@@ -45,8 +45,12 @@ public class PlexServers extends ServerMediaContainer
 		super.update(source);
 		if (source instanceof PlexServers plexServers)
 		{
-			plexServersServers.clear();
-			plexServersServers.addAll(plexServers.plexServersServers);
+			this.plexServers.clear();
+			this.plexServers.addAll(plexServers.plexServers);
+			this.friendlyName = plexServers.friendlyName;
+			this.identifier = plexServers.identifier;
+			this.machineIdentifier = plexServers.machineIdentifier;
+			this.size = plexServers.size;
 		}
 		else
 		{
@@ -56,6 +60,7 @@ public class PlexServers extends ServerMediaContainer
 
 	public String getFriendlyName()
 	{
+		fetch();
 		return friendlyName;
 	}
 
@@ -66,6 +71,7 @@ public class PlexServers extends ServerMediaContainer
 
 	public String getIdentifier()
 	{
+		fetch();
 		return identifier;
 	}
 
@@ -76,6 +82,7 @@ public class PlexServers extends ServerMediaContainer
 
 	public String getMachineIdentifier()
 	{
+		fetch();
 		return machineIdentifier;
 	}
 
@@ -86,6 +93,7 @@ public class PlexServers extends ServerMediaContainer
 
 	public Integer getSize()
 	{
+		fetch();
 		return size;
 	}
 

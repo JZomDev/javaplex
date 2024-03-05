@@ -3,6 +3,7 @@ package kekolab.javaplex;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -916,12 +917,29 @@ public class PlexMediaServer extends PlexMediaContainer {
 		}
 	}
 
-	public PlexServersSharedServers plexServersSharedServers() {
+	public PlexSharedServers plexSharedServers() {
 		try {
-			return new PlexServersSharedServers(this, client(), token());
+			return new PlexSharedServers(this, client(), token());
 		} catch (URISyntaxException e) {
 			throw new PlexException(e);
 		}
+	}
+
+	public String friendRequestBuilder(PlexSharedServer plexSharedServer)
+	{
+		ArrayList<String> sectionIds = new ArrayList<>();
+		for (PlexServersSection plexServersSection : plexSharedServer.getServersSections())
+		{
+			sectionIds.add(plexServersSection.getId());
+		}
+
+		String[] sectionIdArray = Arrays.copyOf(
+			sectionIds.toArray(), sectionIds.size(), String[].class);
+
+		return "{" +
+			"  \"server_id\": \""+getMachineIdentifier()+"\"," +
+			"  \"shared_server\": {\"library_section_ids\" : [" + Arrays.toString(sectionIdArray) + "], \"invited_email\": \"" + plexSharedServer.getEmail() + "\"}" +
+			"}";
 	}
 
 	public List<PlexPlaylist<?>> playlists() {

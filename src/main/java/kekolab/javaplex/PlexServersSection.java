@@ -1,13 +1,6 @@
 package kekolab.javaplex;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import java.util.Date;
-import java.util.List;
-import kekolab.javaplex.mappers.TimestampDeserializer;
-
-public class PlexServersSharedServersSection extends BaseItem
+public class PlexServersSection extends BaseItem
 {
 	private String id;
 	private String key;
@@ -30,7 +23,7 @@ public class PlexServersSharedServersSection extends BaseItem
 	protected void update(BaseItem source)
 	{
 		super.update(source);
-		if (source instanceof PlexServersSharedServersSection plexServersServer)
+		if (source instanceof PlexServersSection plexServersServer)
 		{
 			id = plexServersServer.id;
 			key = plexServersServer.key;
