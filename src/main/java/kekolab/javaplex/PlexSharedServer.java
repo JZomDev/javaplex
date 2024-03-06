@@ -103,7 +103,7 @@ public class PlexSharedServer extends BaseItem
 		}
 		else
 		{
-			throw new ClassCastException("Cannot cast source to PlexSharedServer");
+			throw new ClassCastException("Cannot cast source to PlexServerShare	");
 		}
 	}
 

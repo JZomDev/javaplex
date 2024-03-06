@@ -2,7 +2,6 @@ package kekolab.javaplex;
 
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.ArrayList;
 
 import org.apache.hc.core5.net.URIBuilder;
 
@@ -22,9 +21,9 @@ public class PlexServers extends PlexMediaContainer {
 		return servers;
 	}
 
-	public PlexServers(PlexHTTPClient client, String token) throws URISyntaxException {
+	public PlexServers(PlexHTTPClient client, String token) throws URISyntaxException
+	{
 		super(new URIBuilder("https://plex.tv/api/servers").build(), client, token);
-		servers = new ArrayList<>();
 	}
 
 	@Override
