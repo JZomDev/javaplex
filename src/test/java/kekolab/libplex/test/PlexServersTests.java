@@ -19,12 +19,12 @@ public class PlexServersTests extends PlexTests {
 
     @Test
     public void test() throws URISyntaxException {
-        PlexServers servers = new PlexServers(getServer(), getClient(), getToken());
+        PlexServers servers = new PlexServers(getClient(), getToken());
         assertNotNull(servers.getFriendlyName());
         assertNotNull(servers.getServers());
         assertNotEquals(0, servers.getServers().size());
 
-        PlexServer server = servers.getServers().get(0);
+		PlexServers.PlexServer server = servers.getServers().get(0);
         PlexSharedServers sharedServers = new PlexSharedServers(server, getClient(), getToken());
         assertNotNull(sharedServers.getMachineIdentifier());
         

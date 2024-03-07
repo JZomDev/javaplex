@@ -43,7 +43,7 @@ public class PlexSharedServer extends BaseItem
 	private String filterTelevision;
 	@JsonProperty("Section")
 	@JacksonXmlElementWrapper(useWrapping = false)
-	private List<PlexServer.Section> sections;
+	private List<PlexServers.PlexServer.Section> sections;
 
 	@Override
 	protected void clear()
@@ -307,7 +307,7 @@ public class PlexSharedServer extends BaseItem
 		this.filterTelevision = filterTelevision;
 	}
 
-	public List<PlexServer.Section> getSections()
+	public List<PlexServers.PlexServer.Section> getSections()
 	{
 		return sections;
 	}
