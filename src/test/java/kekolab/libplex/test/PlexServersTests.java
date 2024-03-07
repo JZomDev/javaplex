@@ -1,5 +1,7 @@
 package kekolab.libplex.test;
 
+import kekolab.javaplex.PlexServer;
+import kekolab.javaplex.PlexServerItem;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -11,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import kekolab.javaplex.InviteRequest;
 import kekolab.javaplex.InviteRequest.SharingSettings;
-import kekolab.javaplex.PlexServer;
 import kekolab.javaplex.PlexServers;
 import kekolab.javaplex.PlexSharedServers;
 
@@ -24,7 +25,7 @@ public class PlexServersTests extends PlexTests {
         assertNotNull(servers.getServers());
         assertNotEquals(0, servers.getServers().size());
 
-		PlexServers.PlexServer server = servers.getServers().get(0);
+		PlexServer server = servers.getServers().get(0);
         PlexSharedServers sharedServers = new PlexSharedServers(server, getClient(), getToken());
         assertNotNull(sharedServers.getMachineIdentifier());
         

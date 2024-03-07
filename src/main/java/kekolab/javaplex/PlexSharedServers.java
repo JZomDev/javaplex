@@ -25,14 +25,14 @@ public class PlexSharedServers extends PlexMediaContainer {
 	}
 
 	// TODO The post returns a MediaContainer with a SharedServer Element
-	public BaseItem inviteFriend(String email, List<PlexServers.PlexServer.Section> sections,
+	public BaseItem inviteFriend(String email, List<PlexServerItem.Section> sections,
 			InviteRequest.SharingSettings sharingSettings) {
 		InviteRequest inviteRequestEntity = new InviteRequest();
 		inviteRequestEntity.setServerId(getMachineIdentifier());
 
 		InviteRequest.SharedServer sharedServer = new InviteRequest.SharedServer();
 		sharedServer.setInvitedEmail(email);
-		sharedServer.setLibrarySectionIds(sections.stream().map(PlexServers.PlexServer.Section::getId).toList());
+		sharedServer.setLibrarySectionIds(sections.stream().map(PlexServerItem.Section::getId).toList());
 		inviteRequestEntity.setSharedServer(sharedServer);
 
 		inviteRequestEntity.setSharingSettings(sharingSettings);
@@ -49,7 +49,7 @@ public class PlexSharedServers extends PlexMediaContainer {
 		sharedServers = new ArrayList<>();
 	}
 
-	public PlexSharedServers(PlexServers.PlexServer server, PlexHTTPClient client, String token) throws URISyntaxException {
+	public PlexSharedServers(PlexServer server, PlexHTTPClient client, String token) throws URISyntaxException {
 		this(server.getMachineIdentifier(), client, token);
 	}
 

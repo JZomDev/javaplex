@@ -17,9 +17,9 @@ public class PlexServer extends PlexMediaContainer {
 	Integer size;
 	@JsonProperty("Server")
 	@JacksonXmlElementWrapper(useWrapping = false)
-	private List<PlexServers.PlexServer> servers;
+	private List<PlexServerItem> servers;
 
-	public List<PlexServers.PlexServer> getServers() {
+	public List<PlexServerItem> getServers() {
 		fetch();
 		return servers;
 	}
